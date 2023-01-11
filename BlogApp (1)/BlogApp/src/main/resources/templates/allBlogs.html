@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Всички статии</title>
+</head>
+<body>
+<header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-body border-bottom shadow-sm">
+
+    <p class="h5 my-0 me-md-auto fw-normal " style="color: grey; text-shadow: 2px 2px 4px aqua;">BLOG WORLD</p>
+    <nav  class="navbar">
+        <a href="/">Начало</a>
+        <a href="/blogs/all">Всички статии</a>
+        <a href="/blogs/add">Добавяне на статия</a>
+    </nav>
+
+    <a class="btn btn-outline-primary" href="/user/sign">Sign up</a>
+    <a class="btn btn-outline-success" href="/user/login">Login</a>
+    <!--<a class="btn btn-outline-danger" href="exit">Exit</a>-->
+
+
+</header>
+
+<main class="container">
+    <form th:action="@{/blogs/search}" th:method="POST" enctype="multipart/form-data" class="mb-3">
+        <div class="mb-3">
+            <input name="title" type="text" class="form-control" id="title" placeholder="Search article by first letter">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <h1 class="my-6 border-bottom border-success">Всички статии</h1>
+    <div class="card">
+    <th:block th:if="${blogs}">
+            <div th:each="b : ${blogs}" th:object="${b}" class="col">
+                <p>
+                    <b>Заглавие:</b>
+                    <span th:text="*{title}"></span>
+                </p>
+                <p>
+                    <b>Автор:</b>
+                    <span th:text="*{author}"></span>
+                </p>
+                <p>
+                    <b>Съдържание:</b>
+                    <span th:text="*{content}"></span>
+                </p>
+                <br>
+                <a th:href="@{/blogs/delete/{id}(id = *{id})}" class="btn btn-primary">Delete</a>
+                <a th:href="@{/blogs/edit/{id}(id = *{id})}" class="btn btn-primary">Edit</a>
+            </div>
+    </th:block>
+    </div>
+<footer class="footer">
+    <div class="row">
+        <ul class="list-unstyled text-small">
+            <li>Jennifer Sarvari</li>
+            <div>
+                <a style="margin-right: 10px;" href="/">Начало</a>
+                <a style="margin-right: 10px;" href="/blogs/all">Всички статии</a>
+                <a href="/blogs/add">Добавяне на статия</a>
+            </div>
+        </ul>
+    </div>
+</footer>
+</main>
+</body>
+</html>

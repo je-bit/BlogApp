@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Промени статията</title>
+</head>
+<body>
+<header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-body border-bottom shadow-sm">
+
+    <p class="h5 my-0 me-md-auto fw-normal " style="color: grey; text-shadow: 2px 2px 4px aqua;">BLOG WORLD</p>
+    <nav  class="navbar">
+        <a href="/">Начало</a>
+        <a href="/blogs/all">Всички статии</a>
+        <a href="/blogs/add">Добавяне на статия</a>
+    </nav>
+
+    <a class="btn btn-outline-primary" href="/user/sign">Sign up</a>
+    <a class="btn btn-outline-success" href="/user/login">Login</a>
+    <!--<a class="btn btn-outline-danger" href="exit">Exit</a>-->
+
+
+</header>
+
+<main class="container">
+    <h1 class="text-center my-5">Промени статията</h1>
+
+    <form th:action="@{/blogs/edit/{id}(id = *{id})}" th:method="POST" th:object="${blog}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">Заглавие</label>
+            <input th:field="*{title}" type="text" class="form-control" id="title" aria-describedby="inputTitleError">
+            <div id="inputTitleError" th:errors="*{title}" class="form-text"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="author" class="form-label">Автор</label>
+            <input th:field="*{author}" type="text" class="form-control" id="author"
+                   aria-describedby="inputAuthorError">
+            <div id="inputAuthorError" th:errors="*{author}" class="form-text"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">Съдържание</label>
+            <input th:field="*{content}" type="text" class="form-control" id="content"
+                   aria-describedby="inputContentError">
+            <div id="inputContentError" th:errors="*{content}" class="form-text"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+</main>
+</body>
+</html>
